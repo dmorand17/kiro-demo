@@ -1,13 +1,21 @@
 # Kiro Capabilities Demo
 
-This document demonstrates key Kiro features using a simple AWS Lambda infrastructure project.
+A sample repo to demonstrate various features of Kiro including:
+
+- **Steering Documents**: Automatic adherence to project conventions and standards
+- **Git Best Practices**: Conventional commit messages with proper formatting
+- **Infrastructure as Code**: Terraform generation following project structure
+- **Architecture Diagrams**: Automatic AWS diagram generation from infrastructure
+- **Cost Analysis**: AWS pricing analysis and documentation
+- **Hooks**: Automated workflows triggered by file changes
+- **MCP Servers**: Integration with Git, AWS Diagrams, Pricing, and Terraform tools
 
 ## Prerequisites
 
-- AWS credentials configured
-- Terraform installed
-- Python 3.13+ installed
-- uv package manager installed
+- [AWS credentials configured](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html) (via `aws configure` or environment variables)
+- [Terraform](https://www.terraform.io/downloads) installed
+- [Python 3.13+](https://www.python.org/downloads/) installed
+- [uv](https://docs.astral.sh/uv/getting-started/installation/) package manager installed
 
 ## Demo Scenarios
 
@@ -15,22 +23,20 @@ This document demonstrates key Kiro features using a simple AWS Lambda infrastru
 
 Kiro automatically follows conventional commit format based on steering rules.
 
-**Try it:**
-
-```
-Make a change to lambda_function.py and ask Kiro to commit it
-```
-
-**Example prompt:**
+**Example prompts:**
 
 > "Add error handling to the Lambda function and commit the changes"
+
+> "Update the Lambda timeout to 60 seconds in Terraform and commit"
+
+> "Fix the CloudWatch alarm threshold and create a commit"
 
 **Expected behavior:**
 
 - Kiro modifies the code
 - Creates a commit with proper format: `feat(lambda): add error handling for invalid inputs`
 - Follows imperative mood and conventional commit types
-- Show the diff view
+- Shows the diff view
 
 ---
 
@@ -38,15 +44,13 @@ Make a change to lambda_function.py and ask Kiro to commit it
 
 Kiro uses steering documents to understand project conventions and generate compliant infrastructure.
 
-**Try it:**
+**Example prompts:**
 
-```
-Ask Kiro to create new infrastructure following project standards
-```
+> "Create infrastructure for deploying this project on AWS"
 
-**Example prompt:**
+> "Generate Terraform files for a Lambda function with API Gateway"
 
-> "Create infrascture for deploying this project on AWS"
+> "Set up infrastructure for this Lambda with DynamoDB table"
 
 **Expected behavior:**
 
@@ -63,16 +67,7 @@ Ask Kiro to create new infrastructure following project standards
 
 Demonstrate how Kiro adapts when steering documents are updated.
 
-**Try it:**
-
-```
-1. Update structure.md to add a new required tag
-2. Ask Kiro to update existing infrastructure
-```
-
-**Example steps:**
-
-1. Edit `.kiro/steering/structure.md` and add `owner` to required tags:
+**Setup:** First, edit `.kiro/steering/structure.md` and add `owner` to required tags:
 
 ```markdown
 ## Required Resource Tags
@@ -84,8 +79,11 @@ All AWS resources MUST include the following tags:
 - `owner`: Resource owner (from `var.owner`)
 ```
 
-2. **Example prompt:**
-   > "Update all Terraform files to include the new owner tag requirement"
+**Example prompts:**
+
+> "Update all Terraform files based on steering updates"
+
+> "Refactor the Terraform to comply with the updated tagging standards"
 
 **Expected behavior:**
 
@@ -100,15 +98,11 @@ All AWS resources MUST include the following tags:
 
 Kiro can automatically generate diagrams when infrastructure changes.
 
-**Try it:**
+**Example prompts:**
 
-```
-Ask Kiro to create a diagram of the current infrastructure
-```
+> "Create a diagram of the current infrastructure"
 
-**Example prompt:**
-
-> "Generate an architecture diagram showing the Lambda function, CloudWatch, and IAM resources"
+> "Update the architecture diagram to reflect the latest Terraform changes"
 
 **Expected behavior:**
 
@@ -117,10 +111,7 @@ Ask Kiro to create a diagram of the current infrastructure
 - Shows relationships between Lambda, CloudWatch Logs, IAM roles, and Function URL
 - Saves diagram as PNG in `generated-diagrams/` directory
 
-**Advanced:**
-Set up a hook to auto-generate diagrams on infrastructure changes:
-
-**Example prompt:**
+**Advanced - Create a hook:**
 
 > "Create a hook that generates an architecture diagram whenever Terraform files are modified"
 
@@ -128,23 +119,26 @@ Set up a hook to auto-generate diagrams on infrastructure changes:
 
 ### 5. Generate Pricing Documentation (via Kiro CLI)
 
-Kiro can analyze infrastructure and provide cost estimates.
+Kiro CLI can analyze infrastructure and provide cost estimates using custom agents.
 
-**Try it:**
+**Example CLI commands:**
 
+```bash
+# Analyze pricing for Lambda infrastructure
+kiro-chat --agent aws-architect "Analyze the pricing for this infrastructure and create a PRICING.md file"
+
+# Get estimated monthly costs
+kiro-chat --agent aws-architect "What are the estimated monthly costs for running this infrastructure in both a development and production environment?"
+
+# Generate detailed cost breakdown
+kiro-chat --agent aws-architect "Generate a cost breakdown for the Lambda function with 10 million invocations per month"
 ```
-Ask Kiro to analyze pricing for the deployed resources
-```
-
-**Example prompt:**
-
-> "Analyze the pricing for this Lambda infrastructure and create a PRICING.md file"
 
 **Expected behavior:**
 
-- Uses AWS Pricing MCP server to fetch current pricing
+- Uses the `aws-architect` custom agent via Kiro CLI
+- Leverages AWS Pricing MCP server to fetch current pricing
 - Analyzes Lambda invocations, duration, and memory
-- Includes CloudWatch Logs pricing
 - Calculates estimated monthly costs
 - Documents pricing assumptions and exclusions
 - Creates detailed PRICING.md with:
@@ -196,22 +190,18 @@ Here's a complete workflow that combines multiple capabilities:
 ## Tips for Best Results
 
 1. **Reference steering documents**: Kiro automatically uses them, but you can explicitly reference with `#structure.md`
-
 2. **Use specific prompts**: "Create a Lambda function with CloudWatch alarms" is better than "Create a Lambda"
-
 3. **Iterate incrementally**: Make one change, review, then ask for the next
-
 4. **Leverage hooks**: Automate repetitive tasks like diagram generation or linting
-
 5. **Check pricing early**: Ask for cost analysis before deploying to avoid surprises
 
 ---
 
 ## Steering Documents in This Project
 
-- **tech.md**: Technology stack, tools, and common commands
-- **structure.md**: Project layout, naming conventions, required tags
-- **git-best-practices.md**: Commit message format and workflow
-- **architecture-diagrams.md**: Diagram generation guidelines (if exists)
+- [**tech.md**](.kiro/steering/tech.md): Technology stack, tools, and common commands
+- [**structure.md**](.kiro/steering/structure.md): Project layout, naming conventions, required tags
+- [**git-best-practices.md**](.kiro/steering/git-best-practices.md): Commit message format and workflow
+- [**architecture-diagrams.md**](.kiro/steering/architecture-diagrams.md): Diagram generation guidelines
 
 These documents guide Kiro's behavior automatically - no need to repeat requirements in every prompt!
