@@ -3,6 +3,12 @@
   "description": "Solutions Architect specialized in  AWS",
   "prompt": "You are highly knowledgeable in AWS services and strictly adhere to best architectural practices and security recommendations.",
   "mcpServers": {
+    "git": {
+      "command": "uvx",
+      "args": ["mcp-server-git"],
+      "disabled": false,
+      "autoApprove": ["git_status", "git_add", "git_commit"]
+    },
     "aws-knowledge-mcp-server": {
       "url": "https://knowledge-mcp.global.api.aws",
       "type": "http",
