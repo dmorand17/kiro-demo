@@ -197,6 +197,55 @@ Here's a complete workflow that combines multiple capabilities:
 
 ---
 
+## Best Practices for Steering and Hooks
+
+### Steering Documents
+
+Steering documents are markdown files in `.kiro/steering/` that guide Kiro's behavior automatically. They help maintain consistency across your project without repeating instructions.
+
+**Key principles:**
+
+- **Keep them focused**: Each steering file should cover a specific domain (git, infrastructure, testing, etc.)
+- **Use clear conventions**: Define naming patterns, required fields, and standards explicitly
+- **Include examples**: Show concrete examples of what you want, not just descriptions
+- **Set inclusion rules**: Use frontmatter to control when steering applies (always, fileMatch, manual)
+- **Reference external files**: Use `#[[file:path]]` syntax to include specs, schemas, or documentation
+
+**Common steering patterns:**
+
+- Project structure and naming conventions
+- Required resource tags and metadata
+- Git commit message formats
+- Code style and formatting rules
+- Testing requirements and patterns
+- Documentation standards
+
+### Hooks
+
+Hooks automate agent actions based on IDE events, reducing manual work and ensuring consistency.
+
+**Effective hook patterns:**
+
+- **File watchers**: Auto-format, lint, or validate on save
+- **Diagram generation**: Update architecture diagrams when infrastructure changes
+- **Documentation sync**: Regenerate docs when code changes
+- **Commit helpers**: Suggest commit messages based on changes
+- **Test runners**: Run relevant tests on file changes
+
+**Hook best practices:**
+
+- Keep hook actions focused and fast
+- Use `askAgent` for complex tasks requiring context
+- Use `runCommand` for simple, deterministic operations
+- Test hooks thoroughly before enabling
+- Document what each hook does and why
+
+### Learn More
+
+For comprehensive best practices, examples, and advanced patterns, see the [Kiro Best Practices Repository](https://github.com/awsdataarchitect/kiro-best-practices).
+
+---
+
 ## Steering Documents in This Project
 
 - [**tech.md**](.kiro/steering/tech.md): Technology stack, tools, and common commands
