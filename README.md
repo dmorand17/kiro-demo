@@ -25,11 +25,11 @@ Kiro automatically follows conventional commit format based on steering rules.
 
 **Example prompts:**
 
+> "Change the lambda function to use the logging module instead of print statements"
+
 > "Add error handling to the Lambda function and commit the changes"
 
 > "Update the Lambda timeout to 60 seconds in Terraform and commit"
-
-> "Fix the CloudWatch alarm threshold and create a commit"
 
 **Expected behavior:**
 
