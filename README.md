@@ -203,7 +203,7 @@ Here's a complete workflow that combines multiple capabilities:
 
 **Prompt:**
 
-> "Add a new Lambda function that processes S3 events. Include CloudWatch monitoring, generate an architecture diagram, create pricing documentation, and commit everything with proper git messages."
+> "Add a new Lambda function that processes S3 events. Update the infrastructure, and create pricing documentation. Once finished commit everything with proper git messages."
 
 **Expected Kiro workflow:**
 

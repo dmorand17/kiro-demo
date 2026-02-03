@@ -32,7 +32,8 @@ sample-application/
 
 ## Key Conventions
 
-- Lambda functions use `lambda/` subdirectory for source code
+- Lambda functions use `lambda/{descriptive-name}/` subdirectory for source code
+- Each Lambda should have its own directory (e.g., `lambda-s3-processor/`, `lambda-api-handler/`)
 - Static data files (JSON) are packaged with Lambda deployment
 - Terraform state is local (not remote backend)
 - CloudWatch alarms monitor errors and duration
