@@ -23,9 +23,16 @@ A sample repo to demonstrate various features of Kiro including:
 
 Kiro automatically follows conventional commit format based on steering rules.
 
+**Features Demonstrated:**
+
+- Steering documents (automatic adherence to git-best-practices.md)
+- Git MCP server integration (commit operations)
+- Conventional commit message formatting
+- Code modification with context awareness
+
 **Example prompts:**
 
-> "Change the lambda function to use the logging module instead of print statements"
+> "Change the lambda function to use the logging module instead of print statements and commit these changes"
 
 > "Add error handling to the Lambda function and commit the changes"
 
@@ -43,6 +50,13 @@ Kiro automatically follows conventional commit format based on steering rules.
 ### 2. Generate Infrastructure Using Steering Documents
 
 Kiro uses steering documents to understand project conventions and generate compliant infrastructure.
+
+**Features Demonstrated:**
+
+- Steering documents (structure.md and tech.md)
+- Terraform code generation
+- AWS best practices (tagging, naming conventions)
+- Infrastructure as Code patterns
 
 **Example prompts:**
 
@@ -66,6 +80,13 @@ Kiro uses steering documents to understand project conventions and generate comp
 ### 3. Update Infrastructure Based on Steering Changes
 
 Demonstrate how Kiro adapts when steering documents are updated.
+
+**Features Demonstrated:**
+
+- Dynamic steering document updates
+- Automatic code refactoring based on new conventions
+- Multi-file updates with consistency
+- Context awareness across project files
 
 **Setup:** First, edit `.kiro/steering/structure.md` and add `owner` to required tags:
 
@@ -98,6 +119,13 @@ All AWS resources MUST include the following tags:
 
 Kiro can automatically generate diagrams when infrastructure changes.
 
+**Features Demonstrated:**
+
+- AWS Diagrams MCP server integration
+- Visual infrastructure representation
+- Automatic diagram generation from code
+- Hooks (optional: auto-generate on file changes)
+
 **Example prompts:**
 
 > "Create a diagram of the current infrastructure"
@@ -120,6 +148,14 @@ Kiro can automatically generate diagrams when infrastructure changes.
 ### 5. Generate Pricing Documentation (via Kiro CLI)
 
 Kiro CLI can analyze infrastructure and provide cost estimates using custom agents.
+
+**Features Demonstrated:**
+
+- AWS Pricing MCP server integration
+- Custom agents (aws-architect)
+- Cost analysis and estimation
+- Structured documentation generation
+- Real-time AWS pricing data retrieval
 
 **Example CLI commands:**
 
@@ -154,6 +190,16 @@ kiro-chat --agent aws-architect "Generate a cost breakdown for the Lambda functi
 Here's a complete workflow that combines multiple capabilities:
 
 ### Scenario: Add a New Feature with Full Documentation
+
+**Features Demonstrated:**
+
+- Multi-step autonomous workflow
+- Steering documents (all project conventions)
+- Terraform MCP server (infrastructure generation)
+- AWS Diagrams MCP server (visualization)
+- AWS Pricing MCP server (cost analysis)
+- Git MCP server (version control)
+- End-to-end project automation
 
 **Prompt:**
 
