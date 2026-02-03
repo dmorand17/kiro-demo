@@ -40,3 +40,16 @@ inclusion: always
 - Use environment variables for configuration
 - Review commits for sensitive information
 - Use signed commits when possible
+
+## Tool Usage
+
+- **ALWAYS use Git MCP tools when available** instead of shell commands
+- Use `mcp_git_git_status` instead of `git status`
+- Use `mcp_git_git_add` instead of `git add`
+- Use `mcp_git_git_commit` instead of `git commit`
+- Use `mcp_git_git_diff_unstaged` instead of `git diff`
+- Use `mcp_git_git_diff_staged` instead of `git diff --staged`
+- Use `mcp_git_git_log` instead of `git log`
+- Use `mcp_git_git_branch` instead of `git branch`
+- Use `mcp_git_git_checkout` instead of `git checkout`
+- Never use `executeBash` or shell commands for git operations

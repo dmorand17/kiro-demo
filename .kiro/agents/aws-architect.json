@@ -38,7 +38,7 @@
   "tools": ["*"],
   "resources": ["file://.kiro/steering/**/*.md"],
   "toolsSettings": {
-    "execute_bash": {
+    "executeBash": {
       "autoAllowReadonly": true
     },
     "use_aws": {
