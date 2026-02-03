@@ -23,7 +23,6 @@ Architecture diagrams are automatically generated using the AWS Diagram MCP serv
 1. Scan current Terraform configuration files
 2. Identify AWS resources and their relationships
 3. Use AWS Diagram MCP server to generate diagram
-4. Save to `diagrams/` directory
 
 ## Diagram Standards
 
@@ -45,7 +44,6 @@ Architecture diagrams are automatically generated using the AWS Diagram MCP serv
 
 ### Storage Location
 
-- **Directory**: `diagrams/`
 - **Format**: PNG images
 - **Naming**: `{project-name}-{diagram-type}.png`
 - **Example**: `hello-world-lambda-architecture.png`
