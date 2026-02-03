@@ -2,32 +2,52 @@
   "mcpServers": {
     "git": {
       "command": "uvx",
-      "args": ["mcp-server-git"],
+      "args": [
+        "mcp-server-git"
+      ],
       "disabled": false,
-      "autoApprove": ["git_status", "git_add", "git_commit", "git_diff_unstaged"]
+      "autoApprove": [
+        "git_status",
+        "git_add",
+        "git_commit",
+        "git_diff_unstaged"
+      ]
     },
     "awslabs.aws-diagram-mcp-server": {
       "command": "uvx",
-      "args": ["awslabs.aws-diagram-mcp-server"],
+      "args": [
+        "awslabs.aws-diagram-mcp-server"
+      ],
       "env": {
         "FASTMCP_LOG_LEVEL": "ERROR"
       },
-      "autoApprove": ["list_icons", "generate_diagram"],
+      "autoApprove": [
+        "list_icons",
+        "generate_diagram",
+        "get_diagram_examples"
+      ],
       "disabled": false
     },
     "awslabs.aws-pricing-mcp-server": {
       "command": "uvx",
-      "args": ["awslabs.aws-pricing-mcp-server@latest"],
+      "args": [
+        "awslabs.aws-pricing-mcp-server@latest"
+      ],
       "env": {
         "FASTMCP_LOG_LEVEL": "ERROR",
         "AWS_REGION": "us-east-1"
       },
       "disabled": false,
-      "autoApprove": ["get_pricing", "get_pricing_service_attributes"]
+      "autoApprove": [
+        "get_pricing",
+        "get_pricing_service_attributes"
+      ]
     },
     "awslabs.terraform-mcp-server": {
       "command": "uvx",
-      "args": ["awslabs.terraform-mcp-server@latest"],
+      "args": [
+        "awslabs.terraform-mcp-server@latest"
+      ],
       "env": {
         "FASTMCP_LOG_LEVEL": "ERROR"
       },

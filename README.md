@@ -115,37 +115,7 @@ All AWS resources MUST include the following tags:
 
 ---
 
-### 4. Generate Architecture Diagrams
-
-Kiro can automatically generate diagrams when infrastructure changes.
-
-**Features Demonstrated:**
-
-- AWS Diagrams MCP server integration
-- Visual infrastructure representation
-- Automatic diagram generation from code
-- Hooks (optional: auto-generate on file changes)
-
-**Example prompts:**
-
-> "Create a diagram of the current infrastructure"
-
-> "Update the architecture diagram to reflect the latest Terraform changes"
-
-**Expected behavior:**
-
-- Uses the diagrams MCP server
-- Creates a visual representation of AWS resources
-- Shows relationships between Lambda, CloudWatch Logs, IAM roles, and Function URL
-- Saves diagram as PNG in `generated-diagrams/` directory
-
-**Advanced - Create a hook:**
-
-> "Create a hook that generates an architecture diagram whenever Terraform files are modified"
-
----
-
-### 5. Generate Pricing Documentation (via Kiro CLI)
+### 4. Generate Pricing Documentation (via Kiro CLI)
 
 Kiro CLI can analyze infrastructure and provide cost estimates using custom agents.
 
@@ -161,13 +131,13 @@ Kiro CLI can analyze infrastructure and provide cost estimates using custom agen
 
 ```bash
 # Analyze pricing for Lambda infrastructure
-kiro-chat --agent aws-architect "Analyze the pricing for this infrastructure and create a PRICING.md file"
+kiro-cli --agent aws-architect "Analyze the pricing for this infrastructure and create a PRICING.md file"
 
 # Get estimated monthly costs
-kiro-chat --agent aws-architect "What are the estimated monthly costs for running this infrastructure in both a development and production environment?"
+kiro-cli --agent aws-architect "What are the estimated monthly costs for running this infrastructure in both a development and production environment?"
 
 # Generate detailed cost breakdown
-kiro-chat --agent aws-architect "Generate a cost breakdown for the Lambda function with 10 million invocations per month"
+kiro-cli --agent aws-architect "Generate a cost breakdown for the Lambda function with 10 million invocations per month"
 ```
 
 **Expected behavior:**
