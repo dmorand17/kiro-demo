@@ -23,7 +23,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         dict: API Gateway response with status code, headers, and body
     """
     try:
-        print(f"Processing calculator request - Request ID: {context.request_id}")
+        print(f"Processing calculator request - Request ID: {context.aws_request_id}")
 
         # Parse request body
         body = json.loads(event.get("body", "{}"))
