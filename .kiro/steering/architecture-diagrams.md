@@ -44,8 +44,7 @@ Architecture diagrams are automatically generated using the AWS Diagram MCP serv
 
 ### Storage Location
 
-- **Format**: PNG images
-- **Naming**: `{project-name}-{diagram-type}` (extension added automatically)
+- **Naming**: `{project-name}-{diagram-type}`
 - **Example**: `hello-world-lambda-architecture`
 
 ### Version Control

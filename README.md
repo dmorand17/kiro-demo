@@ -102,7 +102,7 @@ All AWS resources MUST include the following tags:
 
 **Example prompts:**
 
-> "Update all Terraform files based on steering updates"
+> "Update infrastructure since steering documentation is updated"
 
 > "Refactor the Terraform to comply with the updated tagging standards"
 
