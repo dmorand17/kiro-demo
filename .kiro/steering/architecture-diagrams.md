@@ -1,6 +1,6 @@
 ---
 title: Architecture Diagrams
-inclusion: always
+inclusion: never
 ---
 
 # Architecture Diagrams
