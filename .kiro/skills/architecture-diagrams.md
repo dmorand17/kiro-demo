@@ -1,7 +1,6 @@
 ---
 name: Architecture Diagrams
 description: Guide for AWS architecture diagrams.  Use when generating architecture diagrams.
-inclusion: never
 ---
 
 # Architecture Diagrams
