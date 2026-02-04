@@ -36,7 +36,7 @@
     }
   },
   "tools": ["*"],
-  "resources": ["file://.kiro/steering/**/*.md"],
+  "resources": ["file://.kiro/steering/**/*.md", "skill://.kiro/skills/**/*.md"],
   "toolsSettings": {
     "executeBash": {
       "autoAllowReadonly": true
