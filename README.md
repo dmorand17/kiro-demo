@@ -26,22 +26,22 @@ Kiro automatically follows conventional commit format based on steering rules.
 **Features Demonstrated:**
 
 - Steering documents (automatic adherence to git-best-practices.md)
-- Git MCP server integration (commit operations)
+- Git Agent Hooks
 - Conventional commit message formatting
 - Code modification with context awareness
 
 **Example prompts:**
 
-> "Change the lambda function to use the logging module instead of print statements and commit these changes"
+> "Change the lambda function to use the logging module instead of print statements"
 
-> "Add error handling to the Lambda function and commit the changes"
+> "Add error handling to the Lambda function"
 
-> "Update the Lambda timeout to 60 seconds in Terraform and commit"
+> "Update the Lambda timeout to 60 seconds in Terraform"
 
 **Expected behavior:**
 
 - Kiro modifies the code
-- Creates a commit with proper format: `feat(lambda): add error handling for invalid inputs`
+- Agent hook creates a commit with proper format: `feat(lambda): add error handling for invalid inputs`
 - Follows imperative mood and conventional commit types
 - Shows the diff view
 
