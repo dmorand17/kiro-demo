@@ -1,0 +1,19 @@
+{
+  "name": "review-pass",
+  "description": "Deep review subagent — analyzes diffs for bugs, standards violations, and historical context",
+  "prompt": "Code review specialist. You receive a diff, changed file list, and optionally project standards. Return a JSON array of issues, each with: file, line, description, source ('bug'|'standards'|'git-history'|'code-comment'). Only flag real issues with evidence. No vague complaints.",
+  "tools": ["read", "shell", "grep", "glob"],
+  "allowedTools": ["read", "shell", "grep", "glob"],
+  "toolsSettings": {
+    "shell": {
+      "allowedCommands": [
+        "gh pr list",
+        "gh pr view",
+        "git log",
+        "git blame",
+        "git diff"
+      ]
+    }
+  },
+  "model": "claude-sonnet-4.6"
+}

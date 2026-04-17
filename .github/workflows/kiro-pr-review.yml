@@ -1,0 +1,62 @@
+name: Kiro PR Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  code-review:
+    name: Automated Code Review
+    runs-on: ubuntu-latest
+    env:
+      REVIEW_GATE: ${{ inputs.review_gate || vars.REVIEW_GATE || 'warn' }}
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Kiro CLI
+        run: |
+          # See https://kiro.dev/docs/cli/ for the latest installation instructions
+          curl -fsSL https://cli.kiro.dev/install | bash
+
+      - name: Run Kiro headless code review
+        env:
+          KIRO_API_KEY: ${{ secrets.KIRO_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          kiro-cli chat --agent code-reviewer --no-interactive \
+            "Review PR #${{ github.event.pull_request.number }} in ${{ github.repository }}"
+
+      - name: Check review results
+        run: |
+          REVIEW=$(ls -t .kiro/reviews/*.json 2>/dev/null | head -1)
+          if [ -z "$REVIEW" ]; then
+            echo "::error::No review output found in .kiro/reviews/"
+            exit 1
+          fi
+          ISSUES=$(jq '.issues_found' "$REVIEW")
+          echo "Review: $REVIEW"
+          echo "Issues found: $ISSUES"
+          jq '.' "$REVIEW"
+          if [ "$ISSUES" -gt 0 ]; then
+            case "$REVIEW_GATE" in
+              fail)
+                echo "::error::Review found $ISSUES issue(s) — failing build"
+                exit 1 ;;
+              warn)
+                echo "::warning::Review found $ISSUES issue(s)" ;;
+              *)
+                echo "Review found $ISSUES issue(s) (informational)" ;;
+            esac
+          fi

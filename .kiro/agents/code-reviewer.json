@@ -1,0 +1,36 @@
+{
+  "name": "code-reviewer",
+  "description": "Orchestrates parallel code review passes via subagents, scores findings, and reports results",
+  "prompt": "file://../prompts/code-review.md",
+  "tools": ["read", "write", "shell", "grep", "glob", "subagent"],
+  "allowedTools": ["read", "write", "shell", "grep", "glob", "subagent"],
+  "toolsSettings": {
+    "write": {
+      "allowedPaths": [".kiro/reviews/**"]
+    },
+    "shell": {
+      "allowedCommands": [
+        "gh pr view",
+        "gh pr diff",
+        "gh pr list",
+        "gh pr comment",
+        "git log",
+        "git blame",
+        "git rev-parse",
+        "git diff",
+        "git merge-base",
+        "git branch"
+      ]
+    },
+    "subagent": {
+      "availableAgents": ["review-pass", "review-scorer"],
+      "trustedAgents": ["review-pass", "review-scorer"]
+    }
+  },
+  "resources": [
+    "file://CLAUDE.md",
+    "file://AGENTS.md",
+    "file://CONTRIBUTING.md",
+    "file://.kiro/steering/**/*.md"
+  ]
+}

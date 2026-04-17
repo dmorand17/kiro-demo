@@ -9,6 +9,7 @@ A sample repo to demonstrate various features of Kiro including:
 - **Cost Analysis**: AWS pricing analysis and documentation
 - **Hooks**: Automated workflows triggered by file changes
 - **MCP Servers**: Integration with Git, AWS Diagrams, Pricing, and Terraform tools
+- **Headless Mode**: CI/CD automation with `kiro-cli --no-interactive`
 
 ## Prerequisites
 
@@ -16,6 +17,7 @@ A sample repo to demonstrate various features of Kiro including:
 - [Terraform](https://www.terraform.io/downloads) installed
 - [Python 3.13+](https://www.python.org/downloads/) installed
 - [uv](https://docs.astral.sh/uv/getting-started/installation/) package manager installed
+- [Kiro CLI](https://kiro.dev/docs/cli/) installed (for headless mode / Scenario 4 & 5)
 
 ## Demo Scenarios
 
@@ -152,6 +154,83 @@ kiro-cli --agent aws-architect "Generate a cost breakdown for the Lambda functio
   - Usage assumptions
   - Free tier information
   - Cost optimization recommendations
+
+---
+
+### 5. Headless Mode / CI/CD Automation
+
+Kiro CLI can run without a terminal UI — perfect for automating code reviews, test generation, and build diagnostics inside GitHub Actions or any CI/CD pipeline.
+
+**Features Demonstrated:**
+
+- `--no-interactive` flag for headless operation
+- `--trust-tools` for least-privilege tool access
+- `KIRO_API_KEY` environment variable for authentication
+- Piping context (git diffs, build logs) into prompts
+- GitHub Actions integration
+
+**Prerequisites:**
+
+- Kiro Pro, Pro+, or Power subscription
+- `KIRO_API_KEY` set as a CI/CD secret (never hardcode in source)
+- `kiro-cli` installed (see [Kiro CLI docs](https://kiro.dev/docs/cli/))
+
+**Key flags:**
+
+| Flag | Purpose |
+|------|---------|
+| `--no-interactive` | Required for headless — runs without a terminal session |
+| `--trust-tools=read,grep` | Auto-approve specific tool categories (principle of least privilege) |
+| `--trust-all-tools` | Auto-approve all tools (use with caution) |
+| `--require-mcp-startup` | Fail fast if MCP servers cannot connect at startup |
+
+**Local demo script:**
+
+```bash
+export KIRO_API_KEY="your-api-key"
+
+# Review recent git changes
+./scripts/headless-demo.sh review
+
+# Generate unit tests for the calculator Lambda
+./scripts/headless-demo.sh tests
+
+# Generate PRICING.md via the aws-architect agent
+./scripts/headless-demo.sh pricing
+
+# Diagnose a simulated build failure
+./scripts/headless-demo.sh diagnose
+```
+
+**GitHub Actions examples** (see `.github/workflows/`):
+
+- **`kiro-pr-review.yml`** — Runs a headless code review on every pull request, checking for correctness, AWS best practices, and security issues. Optionally generates tests for changed Lambda functions.
+- **`kiro-build-troubleshoot.yml`** — Triggers when another workflow fails, downloads the build logs, and asks Kiro to diagnose the root cause and suggest a fix.
+
+**Basic headless command pattern:**
+
+```bash
+# Read-only analysis (code review, cost estimation)
+kiro-cli chat --no-interactive \
+  --trust-tools=read,grep \
+  "Review the Lambda function at lambda/calculator/lambda_function.py for security issues"
+
+# Analysis + writes (test generation, documentation)
+kiro-cli chat --no-interactive \
+  --trust-all-tools \
+  "Generate pytest tests for the calculator Lambda and save them to lambda/calculator/test_lambda_function.py"
+
+# Pipe context directly into the prompt
+git diff HEAD~1 | kiro-cli chat --no-interactive \
+  --trust-tools=read,grep \
+  "Review this diff for AWS Lambda best practices"
+```
+
+**Expected behavior:**
+
+- Kiro runs non-interactively and exits when complete
+- Exit code 0 on success, non-zero on error (use in shell conditionals)
+- Output goes to stdout — pipe or capture as needed
 
 ---
 
