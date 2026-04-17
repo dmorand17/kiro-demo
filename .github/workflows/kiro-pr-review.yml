@@ -46,9 +46,6 @@ jobs:
             exit 1
           fi
           ISSUES=$(jq '.issues_found' "$REVIEW")
-          echo "Review: $REVIEW"
-          echo "Issues found: $ISSUES"
-          jq '.' "$REVIEW"
           if [ "$ISSUES" -gt 0 ]; then
             case "$REVIEW_GATE" in
               fail)
